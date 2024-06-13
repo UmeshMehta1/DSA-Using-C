@@ -1,0 +1,74 @@
+// infix to prefix
+
+Q. A$B*C-D+E/F/ (G+H) 
+1. A$B*C-D+E/F/ +GH
+2. *$ABC-D+/EF/+GH
+3. *$ABC-D+//EF+Gh
+4. -*$ABCD+//EF+GH
+5. +-*$ABCD//EF+GH
+
+Q. ((A+B)*C-(D-E))$ (F+G)
+1. (+AB*C--DE)$+FG
+2. (*+ABC--DE)$+FG
+3. $-*+ABC-DE+FG
+
+Q. A-B/(C*D$E)
+1. A-B/(C*$DE)
+2. A-/B*C$DE
+3. -A/B*C$DE
+
+// infix to postfix
+
+Q. (A+B)*(C-D)
+1. AB+*CD-
+2. AB+CD-*
+
+Q. A$B*C-D+E/F/ (G+H)
+1. AB$C*-D+EF//GH+
+2. AB$C*-D+EF/GH+/
+3. AB$C*D-EF/GH+/+
+
+Q. ((A+B)*C-(D-E))$ (F+G) 
+1. (AB+C*DE--)$FG+
+2. AB+C*DE--FG+$
+
+
+// ((A-(B+C))*D)$(E+F)
+
+Scan char.      opStack             postStack
+(                 (                  --
+(                 ((                 --
+A                 ((                 A
+-                 ((-                A
+(                 ((-(               A
+B                 ((-(               AB
++                 ((-(+              AB
+C                 ((-(+              ABC
+)                 ((-                ABC+
+)                 (                  ABC+-
+*                 (*                 ABC+-
+D                 (*                 ABC+-D
+)                 ---                ABC+-D*
+$                 $                  ABC+-D*
+(                 $(                 ABC+-D*
+E                 $(                 ABC+-D*E
++                 $(+                ABC+-D*E
+F                 $(+                ABC+-D*EF
+)                 $                  ABC+-D*EF+
+---              -----               ABC+-D*EF+$
+
+
+
+//623 +- 382/+*2$3+ -> ((6((2+3)))*(3+8/2))$2+3
+
+symbol           op1            op2           result          operstack
+
+6        
+6+2-3/3+8*2^3
+
+
+
+2*3+5
+
+
+//

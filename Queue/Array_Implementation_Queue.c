@@ -9,7 +9,7 @@ int main(){
 
     do{
         
-        printf("\n=========Queu Implementation==========\n");
+        printf("\n=========Queue Implementation==========\n");
         printf("\n1.Insert\n2.Delete\n3.Display\n");
         printf("\n=======================================\n");
 
@@ -31,13 +31,15 @@ int main(){
 
 int insert(){
     int n;
-    if(rare==MAXSIZE-1)
+    if(rare==MAXSIZE-1){
        printf("Queue is overflow");
-    else
+       }
+    else{
        printf("enter the element: ");
        scanf("%d",&n);
        rare++;
        queue[rare]=n;
+       }
 }
 
 int delete1(){

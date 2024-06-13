@@ -6,18 +6,22 @@
 #define MAX 100
 #define TRUE 1
 #define FALSE 0
+
 typedef struct{
   char items[MAX];
   int tos;
 }stack;
+
 int isEmpty(stack*s)
 {
   return s->tos==-1;
 }
+
 int isFull(stack*s)
 {
   return s->tos==MAX-1;
 }
+
 void push(stack*s,char ch)
 {
    if(isFull(s))
@@ -34,6 +38,7 @@ char pop(stack*s)
    }
    return s->items[s->tos--];
 }
+
 char peek(stack*s)
 {
    if(isEmpty(s))
@@ -42,6 +47,7 @@ char peek(stack*s)
    }
    return s->items[s->tos];
 }
+
 int getPrecedence(char ch)
 {
   switch(ch)
@@ -56,13 +62,14 @@ int getPrecedence(char ch)
     default: return -1;//this case never occurs
   }
 }
+
 void main()
 {
   stack opstack,poststack;
   char infix[MAX],ch;
   int i;
   opstack.tos=poststack.tos=-1;//initialize both stack to empty
-  clrscr();
+  
   printf("Enter your infix expression:");
   gets(infix);
   for(i=0;i<strlen(infix);i++)//read each symbol one by one from left to right
@@ -74,17 +81,20 @@ void main()
        push(&poststack,ch);
      else if(ch==')')//if scan char is closing parenthesis
      {
+
        while(peek(&opstack)!='(')//see if opstack top contains opener
 	 push(&poststack,pop(&opstack));//if not then pop and push into poststack
        pop(&opstack);//pop the opstack and discard the parentheses
      }
      else//if scan char is operator
      {
+
 	while(!isEmpty(&opstack) && getPrecedence(peek(&opstack))>=getPrecedence(ch))//opstack top item is >= ch in precedance
 	  push(&poststack,pop(&opstack));//pop opstack and push into poststack
 	push(&opstack,ch);//finally push the scanned operator into opstack
      }
   }
+  
   while(!isEmpty(&opstack))//until opstack become empty
     push(&poststack,pop(&opstack));//pop opstack and push into poststack
   //finally display the poststack content
