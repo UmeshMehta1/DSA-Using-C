@@ -19,6 +19,8 @@ void insert_Middle();
 void delete_First();
 void delete_Last();
 void delete_Middle();
+void countNode();
+void searchNode();
 
 int main()
 {
@@ -27,7 +29,7 @@ int main()
     do
     {
         printf("\n================Linked List Menu================");
-        printf("\n1. create\n2.insert_First \n3.insert_Last \n4.insert_Middle \n5.delete_First \n6.delete_Last \n7.delete_Middle \n8.Display \n9.Exit");
+        printf("\n1. create\n2.insert_First \n3.insert_Last \n4.insert_Middle \n5.delete_First \n6.delete_Last \n7.delete_Middle \n8.Display \n9.Exit \n10. Count Node");
         printf("\n==============================================");
 
         printf("\n Enter your choice: ");
@@ -61,6 +63,13 @@ int main()
             break;
         case 9:
             printf("Exiting...");
+            break;
+
+        case 10:
+            countNode();
+            break;
+        case 11:
+            countNode();
             break;
         default:
             printf("Invalid choice! Please try again.");
@@ -287,6 +296,62 @@ void delete_Middle()
             prev->add = next;
             printf("Deleted node: %d", temp->data);
             free(temp);
+        }
+    }
+}
+
+// count the node;
+
+void countNode()
+{
+    int count = 0;
+
+    if (start == NULL)
+    {
+        printf("List Not Found..");
+    }
+    else
+    {
+        temp = start;
+        while (temp != NULL)
+        {
+            count++;
+            temp = temp->add;
+        }
+        printf("The Total Node is: %d", count);
+    }
+}
+
+void searchNode()
+{
+    int s, f = 0;
+    if (start == NULL)
+    {
+        printf("List Not Found..");
+    }
+    else
+    {
+        printf("enter the data: ");
+        scanf("%d", &s);
+
+        temp = start;
+        while (temp != NULL)
+        {
+            if (temp->data == s)
+            {
+                f = 1;
+                break;
+            }
+            temp = temp->data;
+        }
+
+        if (f == 1)
+        {
+            printf("Search is Successfully.");
+        }
+        else
+        {
+            printf("Search is not Successfully.");
         }
     }
 }
