@@ -3,6 +3,8 @@
 #include <conio.h>
 
 void create();
+void createTail();
+void insert_First();
 
 struct node
 {
@@ -11,7 +13,7 @@ struct node
     struct node *prev;
 };
 
-struct node *head, *temp, *newNode, *temp;
+struct node *head, *temp, *newNode, *temp, *tail;
 
 int main()
 {
@@ -31,13 +33,13 @@ int main()
         case 1:
             create();
             break;
-        // case 2:
-        //     insert_First();
-        //     break;
-        // case 3:
-        //     insert_Last();
-        //     break;
-        // case 4:
+        case 2:
+            createTail();
+            break;
+        case 3:
+            insert_First();
+            break;
+        case 4:
         //     insert_Middle();
         //     break;
         // case 5:
@@ -112,4 +114,60 @@ void Display()
             temp = temp->next;
         }
     }
+}
+
+void createTail()
+{
+    head = 0;
+    int choice = 2;
+
+    while (choice)
+    {
+        newNode = (struct node *)malloc(sizeof(struct node));
+        printf("enter data: ");
+        scanf("%d", &newNode->data);
+        newNode->prev = 0;
+        newNode->next = 0;
+
+        if (head == 0)
+        {
+            head = temp = newNode;
+        }
+        else
+        {
+            temp->next = newNode;
+            newNode->prev = tail;
+            tail = newNode;
+        }
+        printf("Do you want to continue");
+        scanf("%d", &choice);
+    }
+}
+
+// Insert first
+
+void insert_First()
+{
+    newNode = (struct node *)malloc(sizeof(struct node));
+    printf("Enter data: ");
+    scanf("%d", &newNode->data);
+    newNode->prev = 0;
+    newNode->next = 0;
+
+    head->prev = newNode;
+    newNode->next = head;
+    head = newNode;
+}
+
+void insert_Last()
+{
+    newNode = (struct node *)malloc(sizeof(struct node));
+    printf("Enter data: ");
+    scanf("%d", &newNode->data);
+    newNode->prev = 0;
+    newNode->next = 0;
+
+    tail->next = newNode;
+    newNode->prev = tail;
+    tail = newNode;
 }
