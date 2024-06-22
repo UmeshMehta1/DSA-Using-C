@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
 
+// Define the node structure
 struct node
 {
     int data;
     struct node *add;
 };
 
+// Global variables
 struct node *start = NULL, *temp, *newNode, *next, *prev;
 
 // Function prototypes
@@ -29,7 +30,7 @@ int main()
     do
     {
         printf("\n================Linked List Menu================");
-        printf("\n1. create\n2.insert_First \n3.insert_Last \n4.insert_Middle \n5.delete_First \n6.delete_Last \n7.delete_Middle \n8.Display \n9.Exit \n10. Count Node");
+        printf("\n1. Create\n2. Insert_First\n3. Insert_Last\n4. Insert_Middle\n5. Delete_First\n6. Delete_Last\n7. Delete_Middle\n8. Display\n9. Exit\n10. Count Node\n11. Search Node");
         printf("\n==============================================");
 
         printf("\n Enter your choice: ");
@@ -62,17 +63,16 @@ int main()
             Display();
             break;
         case 9:
-            printf("Exiting...");
+            printf("Exiting...\n");
             break;
-
         case 10:
             countNode();
             break;
         case 11:
-            countNode();
+            searchNode();
             break;
         default:
-            printf("Invalid choice! Please try again.");
+            printf("Invalid choice! Please try again.\n");
         }
     } while (choice != 9);
 
@@ -85,28 +85,29 @@ void create()
     int n;
     printf("Enter an Element: ");
     scanf("%d", &n);
-    start = (struct node *)(malloc(sizeof(struct node)));
-
+    start = (struct node *)malloc(sizeof(struct node));
     start->data = n;
     start->add = NULL;
     temp = start;
 
     printf("Want to Continue (y/n): ");
-    ch = getche();
+    while ((ch = getchar()) != '\n' && ch != EOF)
+        ; // clear the input buffer
+    ch = getchar();
 
     while (ch == 'y' || ch == 'Y')
     {
-        printf("\nEnter Next Element: ");
+        printf("Enter Next Element: ");
         scanf("%d", &n);
-
-        newNode = (struct node *)(malloc(sizeof(struct node)));
-
+        newNode = (struct node *)malloc(sizeof(struct node));
         newNode->data = n;
         newNode->add = NULL;
         temp->add = newNode;
         temp = newNode; // Move temp to the new node
         printf("Want to Continue (y/n): ");
-        ch = getche();
+        while ((ch = getchar()) != '\n' && ch != EOF)
+            ; // clear the input buffer
+        ch = getchar();
     }
 }
 
@@ -114,7 +115,7 @@ void Display()
 {
     if (start == NULL)
     {
-        printf("List is Not Found...");
+        printf("List is Not Found...\n");
     }
     else
     {
@@ -124,6 +125,7 @@ void Display()
             printf("\t%d", temp->data);
             temp = temp->add;
         }
+        printf("\n");
     }
 }
 
@@ -133,7 +135,7 @@ void insert_First()
     int n;
     printf("Enter New Element to insert: ");
     scanf("%d", &n);
-    newNode = (struct node *)(malloc(sizeof(struct node)));
+    newNode = (struct node *)malloc(sizeof(struct node));
     newNode->data = n;
     newNode->add = start;
     start = newNode;
@@ -145,7 +147,7 @@ void insert_Last()
     int n;
     printf("Enter New Element to insert: ");
     scanf("%d", &n);
-    newNode = (struct node *)(malloc(sizeof(struct node)));
+    newNode = (struct node *)malloc(sizeof(struct node));
     newNode->data = n;
     newNode->add = NULL;
     temp = start;
@@ -164,19 +166,19 @@ void insert_Last()
     }
 }
 
-// Insert Last in LinkedList..
+// Insert in the middle of the LinkedList
 void insert_Middle()
 {
     int n, pos, i = 1;
     if (start == NULL)
     {
-        printf("List Not Found..");
+        printf("List Not Found..\n");
     }
     else
     {
         printf("Enter New Element to insert: ");
         scanf("%d", &n);
-        newNode = (struct node *)(malloc(sizeof(struct node)));
+        newNode = (struct node *)malloc(sizeof(struct node));
         newNode->data = n;
         newNode->add = NULL;
 
@@ -214,23 +216,23 @@ void delete_First()
 {
     if (start == NULL)
     {
-        printf("List Not Found..");
+        printf("List Not Found..\n");
     }
     else
     {
         temp = start;
         start = start->add;
-        printf("Deleted node is %d", temp->data);
+        printf("Deleted node is %d\n", temp->data);
         free(temp);
     }
 }
 
-// Deleted Last Node from linkelist;
+// Delete last node from linkelist
 void delete_Last()
 {
     if (start == NULL)
     {
-        printf("List Not Found..");
+        printf("List Not Found..\n");
     }
     else
     {
@@ -238,7 +240,7 @@ void delete_Last()
 
         if (temp->add == NULL)
         {
-            printf("Deleted Node %d", temp->data);
+            printf("Deleted Node %d\n", temp->data);
             free(temp);
             start = NULL;
         }
@@ -250,19 +252,20 @@ void delete_Last()
                 temp = temp->add;
             }
             prev->add = NULL;
-            printf("Deleted Node %d", temp->data);
+            printf("Deleted Node %d\n", temp->data);
             free(temp);
         }
     }
 }
 
+// Delete a node in the middle of the LinkedList
 void delete_Middle()
 {
     int pos, i = 1;
 
     if (start == NULL)
     {
-        printf("List Not Found..");
+        printf("List Not Found..\n");
     }
     else
     {
@@ -273,7 +276,7 @@ void delete_Middle()
         {
             temp = start;
             start = start->add;
-            printf("Deleted node: %d", temp->data);
+            printf("Deleted node: %d\n", temp->data);
             free(temp);
             return;
         }
@@ -288,27 +291,26 @@ void delete_Middle()
 
         if (temp->add == NULL)
         {
-            printf("Position not found.");
+            printf("Position not found.\n");
         }
         else
         {
             next = temp->add;
             prev->add = next;
-            printf("Deleted node: %d", temp->data);
+            printf("Deleted node: %d\n", temp->data);
             free(temp);
         }
     }
 }
 
-// count the node;
-
+// Count the nodes in the LinkedList
 void countNode()
 {
     int count = 0;
 
     if (start == NULL)
     {
-        printf("List Not Found..");
+        printf("List Not Found..\n");
     }
     else
     {
@@ -318,20 +320,21 @@ void countNode()
             count++;
             temp = temp->add;
         }
-        printf("The Total Node is: %d", count);
+        printf("The Total Node is: %d\n", count);
     }
 }
 
+// Search for a node in the LinkedList
 void searchNode()
 {
     int s, f = 0;
     if (start == NULL)
     {
-        printf("List Not Found..");
+        printf("List Not Found..\n");
     }
     else
     {
-        printf("enter the data: ");
+        printf("Enter the data: ");
         scanf("%d", &s);
 
         temp = start;
@@ -342,16 +345,16 @@ void searchNode()
                 f = 1;
                 break;
             }
-            temp = temp->data;
+            temp = temp->add;
         }
 
         if (f == 1)
         {
-            printf("Search is Successfully.");
+            printf("Search is Successful.\n");
         }
         else
         {
-            printf("Search is not Successfully.");
+            printf("Search is not Successful.\n");
         }
     }
 }
